@@ -4,45 +4,30 @@ from random import randint, shuffle, seed
 
 
 class misra_gries:
-    def __init__(self):
+    def __init__(self, k):
         super().__init__()
-        self.data = None
-
-    def fit(self, arr, k):
         assert(k > 0)
-        self.data = [[-1, -1]]*k  # self.data, frequency
+        self.k = k
+        self.data = [[-1, -1]]*k
 
-        # ind = 0
-        # Iterating for all elements
-        for element in arr:
-            # ind+=1
-            # if ind%1000==0:print(ind)
-            # Case 1: Finding the element in stored self.data
-            job_done = False
-            for i in range(0, k):
-                if self.data[i][0] != -1 and self.data[i][0] == element:
-                    self.data[i][1] += 1
-                    job_done = True
-                    break
-            if job_done:
-                continue
+    def add(self, element, c=1):
+        # Case 1: Finding the element in stored self.data
+        for i in range(0, self.k):
+            if self.data[i][0] != -1 and self.data[i][0] == element:
+                self.data[i][1] += 1
+                return
 
-            # Case 2: Storing the element as new item
-            job_done = False
-            for i in range(0, k):
-                if self.data[i][0] == -1:
-                    self.data[i] = [element, 1]
-                    job_done = True
-                    break
-            if job_done:
-                continue
+        # Case 2: Storing the element as new item
+        for i in range(0, self.k):
+            if self.data[i][0] == -1:
+                self.data[i] = [element, 1]
+                return
 
-            # Dropping frequency of each element & removing the ones with 0
-            for i in range(0, k):
-                self.data[i][1] -= 1
-                if self.data[i][1] == 0:
-                    self.data[i][0] = -1
-        return self.data
+        # Case 3: Dropping frequency of each element & removing the ones with 0
+        for i in range(0, self.k):
+            self.data[i][1] -= 1
+            if self.data[i][1] == 0:
+                self.data[i][0] = -1
 
     def query(self, element):
         for i in self.data:
