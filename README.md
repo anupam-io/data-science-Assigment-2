@@ -8,3 +8,7 @@
 
 - http://qwone.com/~jason/20Newsgroups/
 - https://grouplens.org/datasets/movielens/
+
+## Question 4
+
+- 
